@@ -270,7 +270,7 @@ Plot3D[
 ,{x1,-2,2},{x2,-2,2}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Basic Training example*)
 
 
@@ -412,14 +412,14 @@ Plot3D[{
 },{x1,-2,2},{x2,-2,2}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Further improvements*)
 
 
 (* we modify and improve the 'training' routine with features to track the improvements in the fit *)
 (* we introduce both testing and training datasets to try and understand "cross-validation" *)
 
-Options[TrainAndTestNNv2] = {"Initialisation"->0, "LearningRate"->1, "PrintChiSqInterval"->1, "EarlyStopping"->False}
+Options[TrainAndTestNNv2] = {"Initialisation"->0, "LearningRate"->1, "PrintChiSqInterval"->1, "EarlyStopping"->False};
 
 TrainAndTestNNv2[NNactivationstates_,modelparameters_,sig_,err_,data_,testdata_,iter_,OptionsPattern[]]:=Module[{
   dparams,paramrules,parammatrix,
@@ -456,7 +456,9 @@ If[ii==1||Mod[ii,OptionValue["PrintChiSqInterval"]]==0,Print["iteration ",ii," C
 
 lossmatrix = Join[lossmatrix, {{LossTrain, LossTest}}];
 
-If[OptionValue["EarlyStopping"]&&LossTest<LossTrain, Print["stopping early after ",ii," iterations"]; Continue[];];
+If[OptionValue["EarlyStopping"]&&LossTest>LossTrain,
+  Print["stopping early after ",ii," iterations"];
+  Return[{paramrules, parammatrix, lossmatrix}];];
 
 ,{ii,1,iter}];
 
@@ -504,8 +506,7 @@ iterations = 1000;
 
 {trainedparams,paramevol,lossevol} = TrainAndTestNNv2[myNN,modparams,sig,err,data,testdata,iterations,{
   "PrintChiSqInterval"->100,
-  "LearningRate"->3,
-  "EarlyStopping"->True
+  "LearningRate"->3
   }];
 
 ListPlot[Table[Transpose@{Range[iterations],paramevol[[2;;,i]]},{i,1,Length[paramevol[[1,;;]]]}],{Joined->True,PlotLabels->modparams}]
