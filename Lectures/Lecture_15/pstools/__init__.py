@@ -1,0 +1,1 @@
+from .rambo import generate
