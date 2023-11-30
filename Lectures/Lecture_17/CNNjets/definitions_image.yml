@@ -1,0 +1,23 @@
+features:
+ - pfcand_ptrel
+ - pfcand_etarel
+ - pfcand_phirel
+            
+# spectators to define mass/pT window
+spectators: 
+ - fj_sdmass
+ - fj_pt
+
+# 2 labels: QCD or Hbb (we'll reduce the following labels)
+labels:  
+ - label_QCD_b
+ - label_QCD_bb
+ - label_QCD_c
+ - label_QCD_cc
+ - label_QCD_others
+ - sample_isQCD
+ - label_H_bb
+
+nfeatures: 3
+nspectators: 2
+nlabels: 2
