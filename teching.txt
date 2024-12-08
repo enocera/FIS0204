@@ -1,0 +1,2 @@
+This is an example of dummy file that I want to add to the repository.
+This is an example of summy file to expose the use of branches.
