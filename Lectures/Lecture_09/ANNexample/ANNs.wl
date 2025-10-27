@@ -1,20 +1,32 @@
 (* ::Package:: *)
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Perceptron*)
 
 
 sig[z_]:=HeavisideTheta[z]
-a2[x1_,x2_,t1_,t2_,b_]:=sig[x1*t1+x2*t2+b]
+a2[x1_,x2_,w1_,w2_,b_]:=sig[x1*w1+x2*w2+b]
 
 
 Manipulate[
-  Plot3D[a2[x1,x2,t1,t2,b1],{x1,-2,2},{x2,-2,2}],
-{t1,-1,1},{t2,-1,1},{b1,-1,1}
+  Plot3D[a2[x1,x2,w1,w2,b1],{x1,-2,2},{x2,-2,2}],
+{w1,-1,1},{w2,-1,1},{b1,-1,1}
 ]
 
 
-(* ::Subsection::Closed:: *)
+sig[z_]:=HeavisideTheta[z]
+a2[x1_,x2_,w1_,w2_,b_]:=sig[x1*w1+x2*w2+b]
+a2[a2[x1,x2,w11,w12,b1],a2[x1,x2,w21,w22,b2],w31,w32,b3]
+
+
+Manipulate[
+  Plot3D[a2[a2[x1,x2,w11,w12,b1],a2[x1,x2,w21,w22,b2],w31,w32,b3],{x1,-2,2},{x2,-2,2}],
+{w11,-100,100},{w12,-100,100},{w21,-100,100},{w22,-100,100},{w31,-100,100},{w32,-100,100},
+{b1,-100,100},{b2,-100,100},{b3,-100,100}
+]
+
+
+(* ::Subsection:: *)
 (*Hidden layer ANN*)
 
 
@@ -52,13 +64,13 @@ a2[a2[x1,x2,t1,t2,b1],a2[x1,x2,t3,t4,b2],t5,t6,b3]
 
 
 Manipulate[
-  Plot3D[a2[a2[x1,x2,t1,t2,b1],a2[x1,x2,t3,t4,b2],t5,t6,b3],{x1,-20,20},{x2,-20,20}],
-{t1,-1,1},{t2,-1,1},{t3,-1,1},{t4,-1,1},{t5,-1,1},{t6,-1,1},
+  Plot3D[a2[a2[x1,x2,t1,t2,b1],a2[x1,x2,t3,t4,b2],t5,t6,b3],{x1,-2,2},{x2,-2,2}],
+{t1,-2,2},{t2,-2,2},{t3,-1,1},{t4,-1,1},{t5,-1,1},{t6,-1,1},
 {b1,-1,1},{b2,-1,1},{b3,-1,1}
 ]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*A simple example of Backpropagation*)
 
 
@@ -519,7 +531,7 @@ Plot3D[{
 },{x1,-2,2},{x2,-2,2}]
 
 
-(* ::Subsection::Closed:: *)
+(* ::Subsection:: *)
 (*Machine learning functional forms with in-built routines*)
 
 
